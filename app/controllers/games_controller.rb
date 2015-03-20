@@ -7,13 +7,20 @@ class GamesController < ApplicationController
   end
 
   def play
-    @game = Game.find(UserGame.find_by(user_id: current_user.id).game_id)
+    #@game = Game.find(UserGame.find_by(user_id: current_user.id).game_id)
+    games = Game.where(UserGame.find_by(user_id: current_user.id).game_id)
+    @game = games.order(created_at: :desc).first
     # what is going on here ^^
+    # a) should not be so complicated to look up the correct game
+    # b) do i even want to save the games after completion?
+
     if @game.guesses_left > 0
       guess = params[:guess]
       word = @game.word
       if Game.repeat? @game, guess
         @repeat = true
+      elsif Game.long_guess? @game, guess
+        @long_guess = true
       else
         Game.check_guess word, guess, @game
       end

@@ -41,6 +41,9 @@
 
 	<% if @repeat %>
 		<h4> You already guessed that, try another </h4>
+	<% elsif @long_guess %>
+
+		<h4> Please enter a valid guess (one letter only) </h4>
 	<% end %>
 <% else %>
 	<h2> You lost! </h2>

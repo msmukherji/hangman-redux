@@ -54,6 +54,9 @@ class Game < ActiveRecord::Base
     total = game.guesses + game.wrong_guesses
     total.include? guess
   end
- 
+
+  def self.long_guess? game, guess
+    guess.length > 1
+  end  
 
 end
