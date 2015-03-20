@@ -31,17 +31,19 @@
 
 <% if @won %>
 	<h2> You won! </h2>
+	<a href="/games/new"> <button>Play again?</button> </a>
 <% elsif @game.guesses_left > 0 %>
 	<%= form_tag("/games/play", method: "post") do %>
   		<%= label_tag(:name, "Guess a letter:") %>
   		<%= text_field_tag(:guess) %>
   		<%= submit_tag("Submit") %>
 	<% end %>
-	<% binding.pry %>
+
 	<% if @repeat %>
 		<h4> You already guessed that, try another </h4>
 	<% end %>
 <% else %>
 	<h2> You lost! </h2>
 	<h3> The word was <%= @game.word %> </h3>
+	<a href="/games/new"> <button>Play again?</button> </a>
 <% end %>

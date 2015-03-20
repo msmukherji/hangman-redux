@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   has_one :user, through: :user_games
 
   def word
-    @word = "fail"
+    @word = "peeve"
   end
 
   def self.new_game user
@@ -43,6 +43,7 @@ class Game < ActiveRecord::Base
       end
     end
   end
+
 
   def self.take_turn game
     g = game.guesses_left - 1

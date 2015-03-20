@@ -21,6 +21,7 @@ class GamesController < ApplicationController
      
       # check_guess is doing too much!
       # should be take_turn or some such.
+      # also, this controller is doing far too much.
     end
 
     render :play
