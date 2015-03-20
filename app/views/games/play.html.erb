@@ -37,6 +37,11 @@
   		<%= text_field_tag(:guess) %>
   		<%= submit_tag("Submit") %>
 	<% end %>
+	<% binding.pry %>
+	<% if @repeat %>
+		<h4> You already guessed that, try another </h4>
+	<% end %>
 <% else %>
 	<h2> You lost! </h2>
+	<h3> The word was <%= @game.word %> </h3>
 <% end %>

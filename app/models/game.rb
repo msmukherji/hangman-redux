@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.new_game user
-    g = Game.create(word: @word, guesses_left: 6)
+    g = Game.create(word: @word, guesses_left: 6, guesses: "", wrong_guesses: "")
     ug = UserGame.create(game_id: g.id, user_id: user.id)
     return g 
   end
@@ -20,7 +20,7 @@ class Game < ActiveRecord::Base
     # game as an argument.
     # also:
     # why can't i find a game by the user_id on the join table?
-
+ 
     if word.include? guess
       placeholder = game.guesses || ""
       all_guesses = placeholder << guess
@@ -31,7 +31,7 @@ class Game < ActiveRecord::Base
       game.update(wrong_guesses: "#{all_wrong_guesses}")
       take_turn game
     end
-
+ 
   end
 
   def self.won game
@@ -48,5 +48,11 @@ class Game < ActiveRecord::Base
     g = game.guesses_left - 1
     game.update(guesses_left: g)
   end
+
+  def self.repeat? game, guess
+    total = game.guesses + game.wrong_guesses
+    total.include? guess
+  end
+ 
 
 end
