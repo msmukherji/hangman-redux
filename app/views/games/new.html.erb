@@ -1,0 +1,14 @@
+<h1> playing hangman </h1>
+<table>
+<tr>
+<% @game.word.each_char do |game| %>
+	<td> <h3> _ </h3></td>
+<%end%>
+</tr>
+</table>
+<br>
+<%= form_tag("/games/play", method: "post") do %>
+  <%= label_tag(:name, "Guess a letter:") %>
+  <%= text_field_tag(:guess) %>
+  <%= submit_tag("Submit") %>
+<% end %>

@@ -1,0 +1,42 @@
+<h1> playing hangman </h1>
+<table>
+<tr>
+<% if @game.guesses %>
+	<% @game.word.each_char do |letter| %>
+		<% if @game.guesses.include? letter %>
+			<td> <h3><%= letter %></h3></td>
+		<% else %>
+			<td> <h3> _ </h3></td>
+		<% end %>
+	<% end %>
+<% else %>
+	<% @game.word.each_char do |letter| %>
+		<td> <h3> _ </h3></td>		
+	<% end %>e
+<% end %>
+</tr>
+</table>
+<br>
+
+<h4> Incorrect guesses: </h4>
+	<% if @game.wrong_guesses %>
+	<table>
+	<tr>
+	<% @game.wrong_guesses.each_char do |letter| %>
+		<td> <h5> <%= letter %></h5></td>
+	<% end %>
+	</tr>
+	</table>
+	<% end %>
+
+<% if @won %>
+	<h2> You won! </h2>
+<% elsif @game.guesses_left > 0 %>
+	<%= form_tag("/games/play", method: "post") do %>
+  		<%= label_tag(:name, "Guess a letter:") %>
+  		<%= text_field_tag(:guess) %>
+  		<%= submit_tag("Submit") %>
+	<% end %>
+<% else %>
+	<h2> You lost! </h2>
+<% end %>
